@@ -1,4 +1,155 @@
-is it a must to write down 'Readme'?
-anyway, first repo on Github
-dang, this is awesome!
-p/s: did I do this right???
+
+module Preposterous where
+
+import Data.List
+
+null' x      -- no problem in haskell
+  |x == [] = True
+  |otherwise = False
+
+take' b [] = []      -- no problem in haskell
+take' 0 (x:xs) = []
+take' b (x:xs) = x : take'(b-1) xs
+
+--take 4 [0] = []
+--take 0 [1,2,3,4] = 0
+--take 3 [1,2,3,4] = [1,2,3]
+--take 2 [1,2,3,4] = [1,2]
+--take 1 [1,2,3,4] = [1]
+
+drop' b [] = []    -- no problem in haskell
+drop' 0 (xs) = xs
+drop' b (x:xs) = drop' (b-1) xs
+
+--drop 1 [] = []
+--drop 0 [1,2,3,4] = [1,2,3,4]
+--drop 1 [1,2,3,4] = [2,3,4]
+--drop 2 [1,2,3,4] = [3,4]
+--drop 3 [1,2,3,4] = [4]
+
+fst' (a,b) = a  --no problem in haskell
+
+--fst (100,110) = 100
+
+snd' (a,b) = b  --no prolem in haskell
+
+--snd (100,110) = 110
+
+elem' b [] = False
+elem' b (x:xs)        --no prolem in haskell
+  |b == x = True
+  |otherwise = elem' b xs
+
+--elem 2 [1,2,3]
+--elem 0 (0,0) = True     it's because 0 is in list
+--elem 2 (1,2,3,4,5) = True     it's because 2 is in list
+--elem 0 (1,10) = False    it's because 0 is not in list
+--elem 2 (0,0) = False
+--elem 2 (1,10) = False
+
+notElem' b [] = True
+notElem' b (x:xs)
+  |b == x = False
+  |otherwise = notElem' b xs
+
+max' a b    -- no problem in haskell
+  |a > b = a
+  |a < b = b
+
+--max 4 4 = 4
+
+min' a b     -- no problem in haskell
+  |a > b = b
+  |a < b = a
+
+--min 4 4 = 4
+
+length' [] = 0    -- no problem in haskell
+length' (x:xs) = 1 + length' xs
+
+--length [] = []
+--length [1..10] = 10
+
+head' [b] = b     -- no problem in haskell
+head' (x:xs) = x
+
+--head [1] = 1
+--head [1..5] = 1
+
+tail' [b] = []     -- no problem in haskell
+tail' (x:xs) = xs
+
+--tail [1] = []
+--tail [1..5] = [2,3,4,5]
+
+minimum' [b] = b     -- no problem in haskell
+minimum' (x:xs) = min' (x)  (minimum' xs)
+
+--minimum [2,1,4,0]
+--
+
+maximum' [b] = b        -- no problem in haskell
+maximum' (x:xs) = max' (x) (maximum' xs)
+
+last' [b] = b      -- no problem in haskell
+last' (x:xs) = last' (xs)
+
+--last [0] = 0
+--last [1,2,3] = 3
+--last [3,2,1] = 1
+
+reverse' [] = []
+reverse' [b] = [b]
+reverse' (x:xs) = reverse' (xs) ++ [x]
+
+--reverse [1..5] = [5,4,3,2,1]
+--reverse [1] ---> [2,3,4,5]
+--reverse [] = []
+
+sum' [] = 0
+sum' [b] = b
+sum' (x:xs) = x + sum' xs
+
+--sum [] = 0
+--sum [0] = 0
+--sum [1,2,3] = 6
+--sum [4,2,1] = 7
+
+product' [] = 1
+product' [b] = b
+product' (x:xs) = x * product' xs
+
+--product [] = 1
+--product [3] = 3
+--product [1,2,3] = 6
+
+delete' b [] = []
+delete' b (x:xs)
+  |b == x = xs
+  |b /= x = x : delete' b xs
+
+--delete 3 [] = []
+--delete 3 [1,2,3,5] = [1,2,5]
+--delete 3 [3,1,2,3,5] = [1,2,3,5]
+
+deleteAll' b [] = []
+deleteAll' b (x:xs)
+  |b == x = deleteAll' b xs
+  |b /= x = x : deleteAll' b xs
+
+--d 0 [0,1,2,3]
+--[1,2,3]:(d 0 [1,2,3])
+--[1,2,3]:(1:(d 0 [2 3]))
+--[1 2 3]:[1 2 3] ++
+--deleteAll 0 [0,1,2,3] = [1,2,3]
+--deleteAll 0 [0,0,1,2] = [1,2]
+--deleteAll 0 [1,2,0,4,0] = [1,2,4]
+
+zip' [] [] = []
+zip' [b] [] = []
+zip' [] [b] = []
+zip' (x:xs) (b:bs) = [(x,b)] ++ zip' xs bs
+
+--zip [5] [] = []
+--zip [] [5] = []
+--zip [1,2] [2,3,4] = [(1,2),(2,3)]<--- 4 has no partner
